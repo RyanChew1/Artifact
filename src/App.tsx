@@ -13,7 +13,7 @@ import SigninForm from "@/_auth/forms/SigninForm";
 
 function App() {
   return (
-    <main className="flex h-screen">
+    <main className="flex h-screen bg-off-white dark:bg-dark-1 text-black dark:text-white">
     <Routes>
       {/* public routes */}
       <Route element={<AuthLayout />}>
