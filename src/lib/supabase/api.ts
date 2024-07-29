@@ -1,7 +1,6 @@
 import { supabase } from "./config";
 
 export async function signUpNewUser(email:string, password:string) {
-    console.log("hihihihi")
 
     const { data, error } = await supabase.auth.signUp({
       email: email,
@@ -10,25 +9,20 @@ export async function signUpNewUser(email:string, password:string) {
 
     if (error) throw Error
 
-    const createdUser = await addNewUser(email)
-    console.log("ehere")
-
-    if (!data || !createdUser) throw Error;
+    if (!data) throw Error;
 
     return data
   }
 
+  export async function signInWithEmail(email:string, password:string) {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    })
 
-export async function addNewUser(email:string){
-    const { data, error } = await supabase
-  .from('users')
-  .insert({
-    email: email
-  })
-  .select()
+    if (error) throw Error
 
-  if (error) throw Error;
-  
+    if (!data) throw Error;
 
-  return data;
-}
+    return data
+  }

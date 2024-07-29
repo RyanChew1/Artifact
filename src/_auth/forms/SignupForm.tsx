@@ -57,7 +57,7 @@ const SignupForm = () => {
       <Card className="bg-gray-400 bg-opacity-30 w-[50vw]">
         <CardHeader className="flex justify-center text-center">
           <CardTitle className="text-3xl font-bold text-primary-400">Sign Up </CardTitle>
-          <CardDescription className="text-lg font-medium">
+          <CardDescription className="text-lg font-medium text-black">
             Join Artifact Today for Free
           </CardDescription>
         </CardHeader>
