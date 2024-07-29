@@ -10,12 +10,15 @@ import AuthLayout from "./_auth/AuthLayout";
 import RootLayout from "./_root/RootLayout";
 import SignupForm from "@/_auth/forms/SignupForm";
 import SigninForm from "@/_auth/forms/SigninForm";
+import LandingPage from "./landing-page";
 
 function App() {
   return (
-    <main className="flex h-screen bg-off-white dark:bg-dark-1 text-black dark:text-white">
+    <main className="flex h-screen bg-off-white dark:bg-dark-1 text-black dark:text-white font-[Work Sans]">
     <Routes>
       {/* public routes */}
+      <Route path="/landing" element={<LandingPage />} />
+
       <Route element={<AuthLayout />}>
         <Route path="/sign-in" element={<SigninForm />} />
         <Route path="/sign-up" element={<SignupForm />} />

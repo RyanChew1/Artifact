@@ -19,10 +19,8 @@ module.exports = {
       },
     },
     extend: {
-      fontFamily: {
-        'headers': ["Rokkitt"]
-      },
       colors: {
+        'primary-200':'#0567a1',
         'primary-400': '#449DD1',
         'primary-500': '#78C0E0',
         'primary-900': "#0E0E52",

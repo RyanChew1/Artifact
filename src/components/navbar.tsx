@@ -12,8 +12,8 @@ const Navbar = () => {
   let [open, setOpen] =useState(false);
 
 return (
-    <div className='bg-secondary-500 dark:bg-dark-4 w-full fixed top-0 left-0 font-[rokkitt] text-2xl font-bold'>
-       <div className='md:flex items-center justify-between py-4 md:px-10 px-7'>
+    <div className='bg-secondary-500 dark:bg-dark-4 w-full fixed top-0 left-0 text-xl font-semibold'>
+       <div className='md:flex items-center justify-between py-4 md:px-10 px-7 '>
         {/* logo section */}
         <div className='font-bold text-2xl cursor-pointer flex items-center gap-1'>
           <img

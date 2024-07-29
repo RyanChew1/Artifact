@@ -1,10 +1,11 @@
-import React from 'react'
-
 const Home = () => {
+  console.log("home")
   return (
-    <div>
-      Home
-    </div>
+    <>
+      <h1  className='text-5xl text-black'>
+        HOME
+      </h1>
+    </>
   )
 }
 
