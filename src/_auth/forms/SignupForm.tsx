@@ -61,7 +61,7 @@ const SignupForm = () => {
             Join Artifact Today for Free
           </CardDescription>
         </CardHeader>
-        <CardContent className="flex flex-row h-fit">
+        <CardContent className="flex flex-row h-fit text-black">
           <div className="w-[60%]  mx-3">
             <Form {...form}>
               <form
