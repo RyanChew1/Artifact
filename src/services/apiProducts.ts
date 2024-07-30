@@ -13,3 +13,22 @@ export const getProducts = async () => {
     console.log(error);
   }
 };
+
+export const addProduct = async (sellerId:string, title:string,description:string,price:number) => {
+  try {
+    const { data, error } = await supabase
+      .from('products')
+      .insert([
+        { sellerId:sellerId, title: title, description:description, price:price },
+      ])
+      .select()
+      
+      if (error) throw Error;
+      
+      console.log(data);
+    return data;
+  } catch (error) {
+    console.log('err')
+    console.log(error);
+  }
+};
