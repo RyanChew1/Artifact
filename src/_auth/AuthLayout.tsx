@@ -1,11 +1,12 @@
+import { useAuth } from "@/context/AuthContext";
 import { Outlet, Navigate, Link } from "react-router-dom";
 
 const AuthLayout = () => {
-  const isAuthenticated = false;
+  const { session } = useAuth();
 
   return (
     <>
-      {isAuthenticated ? (
+      {session ? (
         <Navigate to="/" />
       ) : (
         <div className="flex flex-row w-full justify-center bg-off-white">

@@ -40,23 +40,31 @@ const SignupForm = () => {
 
   const onSubmit = async (newUser: z.infer<typeof SignupValidation>) => {
     try {
-      const response = await signUpNewUser(newUser.email, newUser.password)
+      const response = await signUpNewUser(
+        newUser.email,
+        newUser.password,
+        newUser.username,
+        newUser.first,
+        newUser.last
+      );
 
-      console.log(response)
+      console.log(response);
+      if (!response) throw Error;
 
-      form.reset()
-      navigate("/")
+      form.reset();
+      navigate("/");
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-    
   };
 
   return (
     <div>
       <Card className="bg-gray-400 bg-opacity-30 w-[50vw]">
         <CardHeader className="flex justify-center text-center">
-          <CardTitle className="text-3xl font-bold text-primary-400">Sign Up </CardTitle>
+          <CardTitle className="text-3xl font-bold text-primary-400">
+            Sign Up{" "}
+          </CardTitle>
           <CardDescription className="text-lg font-medium text-black">
             Join Artifact Today for Free
           </CardDescription>
@@ -177,7 +185,9 @@ const SignupForm = () => {
           <div className="inline-block w-0.5 self-stretch bg-neutral-100 dark:bg-white/10 mx-10"></div>
           <div className="w-fit flex flex-col justify-center">
             <ul className="flex flex-col h-fit space-y-10 font-bold text-md justify-center align-middle">
-              <h1 className="text-center text-xl text-primary-200">Why Artifact?</h1>
+              <h1 className="text-center text-xl text-primary-200">
+                Why Artifact?
+              </h1>
               <li className="flex">
                 <h1>1.&nbsp; </h1>{" "}
                 <p className="font-medium">

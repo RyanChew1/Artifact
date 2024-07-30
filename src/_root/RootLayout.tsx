@@ -1,13 +1,20 @@
 import { ThemeProvider } from "@/components/theme-provider"
-import Navbar from "@/components/navbar"
-import { Outlet } from "react-router-dom"
+import NavbarProfile from "@/components/navbarProfile"
+import { Outlet, useNavigate } from "react-router-dom"
+import { useAuth } from "@/context/AuthContext";
 
 const RootLayout = () => {
+  const navigate = useNavigate()
+
+  const { session } = useAuth();
+  if (!session){
+    navigate('/landing')
+  }
   return (
     <ThemeProvider  storageKey="vite-ui-theme">
       <div className="flex flex-col">
 
-      <Navbar/>
+      <NavbarProfile/>
 
       <section className="flex w-screen min-h-screen">
         {/* Spacer for navbar */}

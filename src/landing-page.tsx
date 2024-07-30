@@ -1,13 +1,14 @@
 import { Navigate } from 'react-router-dom'
 import Navbar from './components/navbar'
 import { ThemeProvider } from "@/components/theme-provider"
+import { useAuth } from "@/context/AuthContext";
 
 
 const LandingPage = () => {
-  const isAuthenticated = false
+  const { session } = useAuth();
   return (
      <>
-     {isAuthenticated ? (
+     {session ? (
        <Navigate to="/" />
      ) : (
       <ThemeProvider>
