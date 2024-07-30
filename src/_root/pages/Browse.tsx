@@ -1,10 +1,11 @@
+import ProductTable from "@/components/products/ProductTable";
 
 const Browse = () => {
   return (
     <div>
-      Browse
+      <ProductTable />
     </div>
-  )
-}
+  );
+};
 
-export default Browse
+export default Browse;

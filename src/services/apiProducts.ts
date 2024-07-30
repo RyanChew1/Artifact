@@ -4,8 +4,6 @@ export const getProducts = async () => {
   try {
     let { data: products, error } = await supabase.from("products").select("*");
 
-    console.log(products);
-
     if (error) throw Error;
 
     return products;
@@ -14,21 +12,31 @@ export const getProducts = async () => {
   }
 };
 
-export const addProduct = async (sellerId:string, title:string,description:string,price:number) => {
+export const addProduct = async (
+  sellerId: string,
+  title: string,
+  description: string,
+  price: number
+) => {
   try {
     const { data, error } = await supabase
-      .from('products')
+      .from("products")
       .insert([
-        { sellerId:sellerId, title: title, description:description, price:price },
+        {
+          sellerId: sellerId,
+          title: title,
+          description: description,
+          price: price,
+        },
       ])
-      .select()
-      
-      if (error) throw Error;
-      
-      console.log(data);
+      .select();
+
+    if (error) throw Error;
+
+    console.log(data);
     return data;
   } catch (error) {
-    console.log('err')
+    console.log("err");
     console.log(error);
   }
 };

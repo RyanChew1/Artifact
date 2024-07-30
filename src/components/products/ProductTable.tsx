@@ -1,9 +1,28 @@
-const ProductTable = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+import { getProducts } from "@/services/apiProducts";
+import { useQuery } from "@tanstack/react-query";
+import Loader from "../Loader";
+import ProductCard from "./ProductCard";
+import { IProductCard } from "@/types";
 
-export default ProductTable
+const ProductTable = () => {
+  const {isLoading, data:products, error} = useQuery({
+    queryKey: ["product"],
+    queryFn: getProducts,
+  });
+
+  if (error){console.log(error)}
+
+  console.log(products);
+
+  if (isLoading) return (<Loader />)
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {products?.map((product: IProductCard) => (
+        <ProductCard key={product.id} product={product} />
+      ))}
+    </div>
+  );
+};
+
+export default ProductTable;

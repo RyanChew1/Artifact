@@ -22,9 +22,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { SignupValidation } from "@/lib/validation";
 import { signUpNewUser } from "@/lib/supabase/api";
+import { useState } from "react";
+import Loader from "@/components/Loader";
+import { useToast } from "@/components/ui/use-toast";
 
 const SignupForm = () => {
+  const {toast} = useToast()
   const navigate = useNavigate();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
@@ -39,6 +45,8 @@ const SignupForm = () => {
   });
 
   const onSubmit = async (newUser: z.infer<typeof SignupValidation>) => {
+
+    setIsLoading(true);
     try {
       const response = await signUpNewUser(
         newUser.email,
@@ -50,10 +58,17 @@ const SignupForm = () => {
 
       console.log(response);
       if (!response) throw Error;
-
+      
+      setIsLoading(false)
       form.reset();
       navigate("/");
     } catch (error) {
+      setIsLoading(false)
+      toast({
+        variant: "destructive",
+        title: "Error creating account",
+        description: "Please try again, make sure this email address has not been used before.",
+      });
       console.log(error);
     }
   };
@@ -177,7 +192,13 @@ const SignupForm = () => {
                   className="bg-primary-400 text-white font-bold w-[30%] py-3"
                   type="submit"
                 >
-                  Sign Up
+                  {isLoading ? (
+              <div className="flex-center gap-2">
+                <Loader /> Loading...
+              </div>
+            ) : (
+              "Sign Up"
+            )}
                 </Button>
               </form>
             </Form>

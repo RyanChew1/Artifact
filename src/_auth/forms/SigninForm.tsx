@@ -22,9 +22,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { SigninValidation } from "@/lib/validation";
 import { signInWithEmail } from "@/lib/supabase/api";
+import { useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
+import Loader from "@/components/Loader";
 
 const SigninForm = () => {
   const navigate = useNavigate();
+
+  const { toast } = useToast();
+
+  const [isLoading, setIsLoading] = useState(false)
 
   const form = useForm<z.infer<typeof SigninValidation>>({
     resolver: zodResolver(SigninValidation),
@@ -35,6 +42,7 @@ const SigninForm = () => {
   });
 
   const onSubmit = async (userSignin: z.infer<typeof SigninValidation>) => {
+    setIsLoading(true)
     try {
       const response = await signInWithEmail(
         userSignin.email,
@@ -46,6 +54,12 @@ const SigninForm = () => {
       form.reset();
       navigate("/");
     } catch (error) {
+      setIsLoading(false)
+      toast({
+        variant: "destructive",
+        title: "Error signing in",
+        description: "Please try again, if you don't have an account please sign up. Check to make sure you have inputted your password correctly.",
+      });
       console.log("error");
     }
   };
@@ -103,7 +117,13 @@ const SigninForm = () => {
                   className="bg-primary-400 text-white font-bold w-[30%] py-3 justify-self-center"
                   type="submit"
                 >
-                  Log In
+                  {isLoading ? (
+              <div className="flex-center gap-2">
+                <Loader /> Loading...
+              </div>
+            ) : (
+              "Log In"
+            )}
                 </Button>
               </form>
             </Form>
