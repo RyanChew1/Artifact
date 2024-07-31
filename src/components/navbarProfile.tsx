@@ -89,10 +89,10 @@ const NavbarProfile = () => {
           ))}
           <DropdownMenu>
             <DropdownMenuTrigger className="btn bg-off-white hover:bg-gray-300 dark:hover:bg-gray-400 text-white md:ml-8 font-semibold px-3 py-3 rounded-[50%] md:static">
-            <Avatar>
-            <AvatarImage src="" />
-            <AvatarFallback className="text-black">RC</AvatarFallback>
-            </Avatar>
+              <Avatar>
+                <AvatarImage src="" />
+                <AvatarFallback className="text-black">RC</AvatarFallback>
+              </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="z-[100] opacity-100 bg-white dark:bg-black text-black dark:text-white">
               <DropdownMenuItem>Profile</DropdownMenuItem>

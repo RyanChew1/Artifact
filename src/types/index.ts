@@ -12,11 +12,13 @@ export type IProduct = {
   price: number;
   description: string;
   imageUrl: string;
+  isSold: boolean;
 };
 
 export type IProductCard = {
   id: string;
   title: string;
   image: string;
-  price: string;
-}
+  price: number;
+  isSold: boolean;
+};

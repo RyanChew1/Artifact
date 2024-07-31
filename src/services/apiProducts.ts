@@ -40,3 +40,22 @@ export const addProduct = async (
     console.log(error);
   }
 };
+
+export const markSold = async () => {
+  try {
+  } catch (error) {}
+};
+
+export const getProductById = async (id: string) => {
+  try {
+    let { data: products, error } = await supabase
+      .from("products")
+      .select("*")
+      .eq("id", id);
+
+    if (error) throw Error;
+    return products;
+  } catch (error) {
+    console.log(error);
+  }
+};

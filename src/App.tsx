@@ -13,6 +13,7 @@ import SigninForm from "@/_auth/forms/SigninForm";
 import LandingPage from "./landing-page";
 import Browse from "./_root/pages/Browse";
 import Sell from "./_root/pages/Sell";
+import ProductDetail from "./_root/pages/ProductDetail";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,7 +26,7 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false}/>
+      <ReactQueryDevtools initialIsOpen={false} />
       <main className="flex h-screen bg-off-white dark:bg-dark-1 text-black dark:text-white font-[Work Sans]">
         <Routes>
           {/* public routes */}
@@ -41,6 +42,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/sell" element={<Sell />} />
             <Route path="/browse" element={<Browse />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
           </Route>
         </Routes>
 
