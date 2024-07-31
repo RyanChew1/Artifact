@@ -27,7 +27,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <main className="flex h-screen bg-off-white dark:bg-dark-1 text-black dark:text-white font-[Work Sans]">
+      <main className="flex min-h-screen bg-off-white dark:bg-dark-1 text-black dark:text-white font-[Work Sans]">
         <Routes>
           {/* public routes */}
           <Route path="/landing" element={<LandingPage />} />

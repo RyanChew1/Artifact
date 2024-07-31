@@ -1,3 +1,4 @@
+import { useAuth } from "@/context/AuthContext";
 import { getProductById } from "@/services/apiProducts";
 import { useQuery } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
@@ -7,7 +8,9 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  console.log(id);
+
+  const {user} = useAuth();
+  console.log(user)
 
   const [product, setProduct] = useState({
     id: 0,
@@ -37,9 +40,10 @@ const ProductDetail = () => {
     }
   }, [response]);
 
-  console.log(product.title);
 
   if (isLoading) return <Loader />;
+
+  // console.log(user?.id)
 
   return (
     <div className="w-full h-full flex flex-row justify-center">
@@ -50,9 +54,9 @@ const ProductDetail = () => {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-6"
+              strokeWidth={3}
+              stroke="#449DD1"
+              className="size-8"
             >
               <path
                 strokeLinecap="round"

@@ -59,3 +59,31 @@ export const getProductById = async (id: string) => {
     console.log(error);
   }
 };
+
+export const getProductsBySeller = async (id: string) => {
+  try {
+    let { data: products, error } = await supabase
+      .from("products")
+      .select("*")
+      .eq("sellerId", id);
+
+    if (error) throw Error;
+
+    return products;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteProduct = async (id: string) => {
+  try {
+    let { data, error } = await supabase.from("products").delete().eq("id", id);
+
+    if (error) throw Error;
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    return 'error';
+  }
+};

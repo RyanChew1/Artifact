@@ -21,4 +21,5 @@ export type IProductCard = {
   image: string;
   price: number;
   isSold: boolean;
+  sellerId:string;
 };

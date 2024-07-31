@@ -5,7 +5,7 @@ const ProductCard = ({ product }: { product: IProductCard }) => {
   return (
     <Link to={`/product/${product.id}`}>
       <div
-        className={`flex justify-center items-center rounded-xl h-[25vh] w-[25vh] bg-gray-500 bg-opacity-25`}
+        className={`flex justify-center items-center rounded-xl h-[35vh] w-[35vh] bg-gray-500 bg-opacity-25 p-1`}
       >
         <div className="flex flex-col gap-2 h-full w-full justify-evenly mx-5 py-1">
           {/* Image */}

@@ -18,6 +18,7 @@ import { getUserWithSession } from "@/lib/supabase/api";
 import { useEffect, useState } from "react";
 import { addProduct } from "@/services/apiProducts";
 import { useToast } from "@/components/ui/use-toast";
+import ProductIdTable from "@/components/products/ProductByIdTable";
 
 const Sell = () => {
   const { toast } = useToast();
@@ -73,6 +74,8 @@ const Sell = () => {
       console.log(error);
     }
   };
+
+
 
   return (
     <div className="flex flex-col justify-center mt-10">
@@ -175,8 +178,13 @@ const Sell = () => {
       </div>
 
       {/* Your Products */}
-      <div>
-        <h1 className="text-3xl font-bold mt-5 ml-10">Your Products</h1>
+      <div className="mb-10">
+        <h1 className="text-4xl font-bold mt-5 ml-10 self-center text-center">Your Products</h1>
+        {user ? (
+            <ProductIdTable id={user.id} />
+          ) : (
+            <></>
+          )}
       </div>
     </div>
   );
