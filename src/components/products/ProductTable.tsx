@@ -12,7 +12,7 @@ const ProductTable = () => {
   } = useQuery({
     queryKey: ["product"],
     queryFn: getProducts,
-    refetchInterval: 15*1000 //15 seconds
+    refetchInterval: 30 * 1000, //30 seconds
   });
 
   if (error) {

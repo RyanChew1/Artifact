@@ -9,15 +9,15 @@ const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const {user} = useAuth();
-  console.log(user)
+  const { user } = useAuth();
+  console.log(user);
 
   const [product, setProduct] = useState({
     id: 0,
     title: "Product Title",
     description: "Product Description",
     price: 0.0,
-    image: "",
+    imageUrl: "",
     isSold: false,
   });
 
@@ -39,7 +39,6 @@ const ProductDetail = () => {
       setProduct(response[0]);
     }
   }, [response]);
-
 
   if (isLoading) return <Loader />;
 
@@ -73,7 +72,7 @@ const ProductDetail = () => {
           <img src={""} className="h-5 w-5 aspect-square my-3" />
         </div>
         <h1 className="text-lg font-semibold">{product.description}</h1>
-        <img src={product.image} className="h-[30vh] w-[30vh] aspect-square" />
+        <img src={product.imageUrl} className="h-[30vh] w-[30vh] aspect-square mb-5" />
         <div>
           {product.price == 0 ? (
             <p className="font-bold text-3xl self-end">Free</p>

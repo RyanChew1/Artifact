@@ -11,14 +11,14 @@ export type IProduct = {
   seller: string;
   price: number;
   description: string;
-  imageUrl: string;
+  imageUrl?: File;
   isSold: boolean;
 };
 
 export type IProductCard = {
   id: string;
   title: string;
-  image: string;
+  imageUrl: string;
   price: number;
   isSold: boolean;
   sellerId:string;

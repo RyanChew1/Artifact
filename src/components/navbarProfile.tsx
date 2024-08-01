@@ -1,6 +1,6 @@
 import { ModeToggle } from "./mode-toggle";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import {
   DropdownMenu,
@@ -10,8 +10,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { supabase } from "@/lib/supabase/config";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { useAuth } from "@/context/AuthContext";
+import { getUserWithId } from "@/lib/supabase/api";
 
 const NavbarProfile = () => {
+  const { user } = useAuth();
+
+  const navigate = useNavigate();
+
   let Links = [
     { name: "Messages", link: "/" },
     { name: "Sell Materials", link: "/sell" },
@@ -23,15 +29,21 @@ const NavbarProfile = () => {
     await supabase.auth.signOut();
   };
 
+  const [name, setName] = useState({
+    first: user?.user_metadata.first_name.charAt(0),
+    last: user?.user_metadata.last_name.charAt(0)
+})
+
+
   return (
-    <div className="bg-secondary-500 dark:bg-dark-4 w-full fixed top-0 left-0 text-xl font-semibold">
+    <div className="bg-secondary-500 dark:bg-dark-4 w-full fixed top-0 left-0 text-xl font-semibold max-w-[100vw]">
       <div className="md:flex items-center justify-between py-4 md:px-10 px-7 ">
         {/* logo section */}
         <Link to="/">
           <div className="font-bold text-2xl cursor-pointer flex items-center gap-1">
             <img
               src={"/assets/Artifact Logo.png"}
-              className="hidden xl:block h-[5rem]  object-cover"
+              className="hidden xl:block h-[4.5rem]  object-cover"
             />
             <h1 className="text-3xl font-bold font-[Lexend]">ARTIFACT</h1>
           </div>
@@ -76,7 +88,7 @@ const NavbarProfile = () => {
         </div>
         {/* linked items */}
         <ul
-          className={`md:flex md:items-center md:pb-0 pb-12 absolute md:static md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 transition-all ease-in ${
+          className={`md:flex md:items-center md:pb-0 pb-12 absolute md:static z-[999] left-0 w-full md:w-auto md:pl-0 pl-9 transition-all ease-in ${
             open ? "top-12" : "top-[-490px]"
           }`}
         >
@@ -91,11 +103,19 @@ const NavbarProfile = () => {
             <DropdownMenuTrigger className="btn bg-off-white hover:bg-gray-300 dark:hover:bg-gray-400 text-white md:ml-8 font-semibold px-3 py-3 rounded-[50%] md:static">
               <Avatar>
                 <AvatarImage src="" />
-                <AvatarFallback className="text-black">RC</AvatarFallback>
+                <AvatarFallback className="text-black">{user?.user_metadata.first_name.charAt(0)}{user?.user_metadata.last_name.charAt(0)}</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="z-[100] opacity-100 bg-white dark:bg-black text-black dark:text-white">
-              <DropdownMenuItem>Profile</DropdownMenuItem>
+              <DropdownMenuItem>
+                <button
+                  onClick={() => {
+                    navigate(`/profile/${user?.id}`);
+                  }}
+                >
+                  Profile
+                </button>
+              </DropdownMenuItem>
               <DropdownMenuItem>Order History</DropdownMenuItem>
               <DropdownMenuItem>
                 <button onClick={signOut}>Sign Out</button>

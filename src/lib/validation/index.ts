@@ -23,15 +23,25 @@ export const SigninValidation = z.object({
 });
 
 export const UploadProductValidation = z.object({
-  title: z.string().min(1, { message: "Name cannot be blank." }),
+  title: z.string().min(1, { message: "Product title cannot be blank." }),
   description: z.string(),
-  imageUrl: z.string().min(1, {message: "Select a file"}),
+  imageUrl: z.any(),
   price: z.coerce.number().multipleOf(0.01, {message: "Invalid Price"})
-}).superRefine(({ price}, ctx) => {
+}).superRefine(({ price, imageUrl}, ctx) => {
   if (price < 0) {
     ctx.addIssue({
       code: "custom",
       message: "Invalid Price",
-    });
+      path: ['price']
+    })
+    
+    ;
   }
+  if (imageUrl==undefined) {
+    ctx.addIssue({
+      code: imageUrl,
+      message: "Upload an Image",
+      path: ['imageUrl']
+      });
+      }
   });

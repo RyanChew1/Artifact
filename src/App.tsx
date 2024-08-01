@@ -14,6 +14,7 @@ import LandingPage from "./landing-page";
 import Browse from "./_root/pages/Browse";
 import Sell from "./_root/pages/Sell";
 import ProductDetail from "./_root/pages/ProductDetail";
+import ProfilePage from "./_root/pages/Profile";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,7 +28,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <main className="flex min-h-screen bg-off-white dark:bg-dark-1 text-black dark:text-white font-[Work Sans]">
+      <main className="flex min-h-screen bg-off-white dark:bg-dark-5 text-black dark:text-white font-[Work Sans] overflow-x-hidden">
         <Routes>
           {/* public routes */}
           <Route path="/landing" element={<LandingPage />} />
@@ -43,6 +44,7 @@ function App() {
             <Route path="/sell" element={<Sell />} />
             <Route path="/browse" element={<Browse />} />
             <Route path="/product/:id" element={<ProductDetail />} />
+            <Route path="/profile/:id" element={<ProfilePage />} />
           </Route>
         </Routes>
 

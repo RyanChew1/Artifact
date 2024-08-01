@@ -16,8 +16,17 @@ export const addProduct = async (
   sellerId: string,
   title: string,
   description: string,
-  price: number
+  price: number,
+  imageUrl: any
 ) => {
+  const imageName = `${Math.random()}-${imageUrl[0].path}`
+    .replaceAll("/", "")
+    .replaceAll("\\", "")
+    .replaceAll(" ", "%20");
+
+  const imagePath = `${
+    import.meta.env.VITE_PROJECT_URL
+  }/storage/v1/object/public/productImages/${imageName}`;
   try {
     const { data, error } = await supabase
       .from("products")
@@ -27,13 +36,21 @@ export const addProduct = async (
           title: title,
           description: description,
           price: price,
+          imageUrl: imagePath,
         },
       ])
       .select();
 
     if (error) throw Error;
 
-    console.log(data);
+    console.log(imageName);
+
+    const { error: errorStorage } = await supabase.storage
+      .from("productImages")
+      .upload(imageName, imageUrl[0]);
+
+    if (errorStorage) throw Error;
+
     return data;
   } catch (error) {
     console.log("err");
@@ -56,7 +73,7 @@ export const getProductById = async (id: string) => {
     if (error) throw Error;
     return products;
   } catch (error) {
-    console.log(error);
+    
   }
 };
 
@@ -84,6 +101,6 @@ export const deleteProduct = async (id: string) => {
     return data;
   } catch (error) {
     console.log(error);
-    return 'error';
+    return "error";
   }
 };

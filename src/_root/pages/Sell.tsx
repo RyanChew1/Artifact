@@ -19,6 +19,7 @@ import { useEffect, useState } from "react";
 import { addProduct } from "@/services/apiProducts";
 import { useToast } from "@/components/ui/use-toast";
 import ProductIdTable from "@/components/products/ProductByIdTable";
+import FileUploader from "@/components/FileUploader";
 
 const Sell = () => {
   const { toast } = useToast();
@@ -29,7 +30,6 @@ const Sell = () => {
       title: "",
       description: "",
       price: 0.0,
-      imageUrl: "",
     },
   });
 
@@ -52,7 +52,8 @@ const Sell = () => {
         user.id,
         productInfo.title,
         productInfo.description,
-        productInfo.price
+        productInfo.price,
+        productInfo.imageUrl
       );
       if (!newProduct) throw Error;
       console.log(newProduct);
@@ -75,12 +76,10 @@ const Sell = () => {
     }
   };
 
-
-
   return (
-    <div className="flex flex-col justify-center mt-10">
+    <div className="flex flex-col justify-center mt-10 max-w-[100vw]">
       <div className="flex flex-row justify-center ">
-        <Card className="w-[80%] bg-gray-300 py-10 px-5 dark:text-black">
+        <Card className="w-[80%]  bg-gray-300 dark:bg-gray-700 border-none py-10 px-5">
           <CardTitle className="text-3xl font-bold mb-5">
             List a Product
           </CardTitle>
@@ -98,11 +97,11 @@ const Sell = () => {
                     <FormItem>
                       <FormLabel>
                         <h1 className="font-semibold text-base">
-                          Product Title
+                          Product Title (*)
                         </h1>
                       </FormLabel>
                       <FormControl>
-                        <Input {...field} />
+                        <Input className="text-black" {...field} />
                       </FormControl>
                       <FormMessage className="text-red text-[10px]" />
                     </FormItem>
@@ -116,7 +115,7 @@ const Sell = () => {
                     <FormItem>
                       <FormLabel>
                         <h1 className="font-semibold text-base">
-                          Short description of product (include condition)
+                          Short description of product
                         </h1>
                       </FormLabel>
                       <FormControl>
@@ -150,14 +149,13 @@ const Sell = () => {
                     <FormItem>
                       <FormLabel>
                         <h1 className="font-semibold text-base">
-                          Upload Product Image
+                          Upload Product Image (*)
                         </h1>
                       </FormLabel>
                       <FormControl>
-                        <Input
-                          {...field}
-                          type="file"
-                          className="text-black bg-primary-500 bg-opacity-50"
+                        <FileUploader
+                          fieldChange={field.onChange}
+                          mediaUrl={""}
                         />
                       </FormControl>
                       <FormMessage className="text-red text-[10px]" />
@@ -178,13 +176,11 @@ const Sell = () => {
       </div>
 
       {/* Your Products */}
-      <div className="mb-10">
-        <h1 className="text-4xl font-bold mt-5 ml-10 self-center text-center">Your Products</h1>
-        {user ? (
-            <ProductIdTable id={user.id} />
-          ) : (
-            <></>
-          )}
+      <div className="mb-10 self-center sm:ml-0 sm:pl-0">
+        <h1 className="text-4xl font-bold mt-5 ml-10 sm:ml-0 self-center text-center">
+          Your Products
+        </h1>
+        {user ? <ProductIdTable id={user.id} /> : <></>}
       </div>
     </div>
   );
