@@ -13,6 +13,11 @@ function ProfilePage() {
 
    const {user} = useAuth()
 
+   let isUserProfile = false
+   if (user?.id == id){
+    isUserProfile = true
+   }
+
   const [avatar, setAvatar] = useState("");
   const [username, setUsername] = useState("");
   const [newUsername, setNewUsername] = useState("");
@@ -33,8 +38,8 @@ function ProfilePage() {
         setUsername(returnUser.username)
 
         setName({
-            first: user?.user_metadata.first_name.charAt(0),
-            last: user?.user_metadata.last_name.charAt(0),
+            first: returnUser.first.charAt(0),
+            last: returnUser.last.charAt(0),
         })
 
         setAvatar(returnUser.imageUrl ? returnUser.imageUrl : "")
@@ -76,7 +81,7 @@ function ProfilePage() {
   return (
     <div className="flex flex-col h-full w-full justify-center">
       <div className="w-[40%] pt-5 pb-10 px-3 mx-auto p-4 border-2 border-dark-3 dark:border-gray-300 rounded-lg shadow-md bg-gray-500 bg-opacity-10">
-        <h1 className="text-3xl font-bold mb-4 text-primary-900 dark:text-primary-500">Edit Profile</h1>
+        <h1 className="text-3xl font-bold mb-4 text-primary-900 dark:text-primary-500">Profile</h1>
         <div className="flex flex-col items-center mb-4">
             <div className="flex flex-row self-start justify-center border m-3 p-3 rounded-xl bg-primary-500 border-none ml-0">
             <Avatar className="w-24 h-24 rounded-full mb-2 self-start z-0">
@@ -89,22 +94,21 @@ function ProfilePage() {
                 {username}
             </h1>
             </div>
+
           
-          <input
+          {isUserProfile ? (<><input
             type="file"
             accept="image/*"
             onChange={handleAvatarChange}
             className="hidden"
-            id="avatar-input"
-          />
-          <label
-            htmlFor="avatar-input"
-            className="bg-primary-400 hover:bg-green-700 text-white font-bold py-2 px-4 rounded self-start"
-          >
-            Change Avatar
-          </label>
+            id="avatar-input" /><label
+              htmlFor="avatar-input"
+              className="bg-primary-400 hover:bg-green-700 text-white font-bold py-2 px-4 rounded self-start"
+            >
+              Change Avatar
+            </label></>): <></>}
         </div>
-        <div className="mb-4">
+        {isUserProfile ? (<><div className="mb-4">
           <label className="block text-sm font-bold mb-2">
             Change Username:
           </label>
@@ -112,15 +116,14 @@ function ProfilePage() {
             type="text"
             value={newUsername}
             onChange={handleUsernameChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline text-black"
-          />
-        </div>
-        <button
+            className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline text-black" />
+        </div><button
           onClick={handleSaveChanges}
           className="bg-primary-400 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
         >
-          Change Username
-        </button>
+            Change Username
+          </button></>) : <></>}
+        
       </div>
        {/* Your Products */}
       <div className="mb-10 self-center sm:ml-0 sm:pl-0">

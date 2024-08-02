@@ -1,16 +1,26 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useToast } from "@/components/ui/use-toast";
 import { useAuth } from "@/context/AuthContext";
+import { getUserWithId } from "@/lib/supabase/api";
 import { getProductById } from "@/services/apiProducts";
 import { useQuery } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 
+const numToCurrency = (num: number) => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(num);
+};
+
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   const { user } = useAuth();
-  console.log(user);
 
   const [product, setProduct] = useState({
     id: 0,
@@ -19,6 +29,7 @@ const ProductDetail = () => {
     price: 0.0,
     imageUrl: "",
     isSold: false,
+    sellerId: "",
   });
 
   const {
@@ -31,7 +42,10 @@ const ProductDetail = () => {
   });
 
   if (error) {
-    console.log(error);
+    toast({
+      title: "Error Loading Product",
+      variant: "destructive",
+    });
   }
 
   useEffect(() => {
@@ -40,9 +54,24 @@ const ProductDetail = () => {
     }
   }, [response]);
 
-  if (isLoading) return <Loader />;
+  const [seller, setSeller] = useState({
+    avatarUrl: "",
+    username: "",
+    id: "",
+  });
 
-  // console.log(user?.id)
+  useEffect(() => {
+    const seller = getUserWithId(product.sellerId);
+    seller.then((response) => {
+      setSeller({
+        avatarUrl: response.imageUrl,
+        username: response.username,
+        id: response.id,
+      });
+    });
+  });
+
+  if (isLoading) return <Loader />;
 
   return (
     <div className="w-full h-full flex flex-row justify-center">
@@ -67,17 +96,34 @@ const ProductDetail = () => {
         </div>
 
         <h1 className="text-5xl font-extrabold">{product.title}</h1>
-        <div>
-          {/* Avatar */}
-          <img src={""} className="h-5 w-5 aspect-square my-3" />
-        </div>
-        <h1 className="text-lg font-semibold">{product.description}</h1>
-        <img src={product.imageUrl} className="h-[30vh] w-[30vh] aspect-square mb-5" />
+        <Link to={`/profile/${product.sellerId}`}>
+          <div className="flex flex-row">
+            {/* Avatar */}
+            <Avatar>
+              <AvatarImage src={seller.avatarUrl} />
+              <AvatarFallback className="text-white rounded-full bg-slate-500">
+                {user?.user_metadata.first_name.charAt(0)}
+                {user?.user_metadata.last_name.charAt(0)}
+              </AvatarFallback>
+            </Avatar>
+            <span className="text-2xl font-bold ml-5 mt-1">
+              {seller.username}
+            </span>
+          </div>
+        </Link>
+        <h1 className="text-lg font-semibold mt-3">Description:</h1>
+        <h1 className="text-lg font-medium mb-5">{product.description}</h1>
+        <img
+          src={product.imageUrl}
+          className=" w-[30vh] max-h-[60vh] aspect-auto mb-5 object-contain"
+        />
         <div>
           {product.price == 0 ? (
             <p className="font-bold text-3xl self-end">Free</p>
           ) : (
-            <p className="font-bold text-3xl self-end">{`$` + product.price}</p>
+            <p className="font-bold text-3xl self-end">
+              {numToCurrency(product.price)}
+            </p>
           )}
         </div>
         <div>
@@ -90,7 +136,7 @@ const ProductDetail = () => {
               <button className="font-bold text-xl w-fit bg-primary-400 px-10 py-3 rounded-xl mt-3 text-white">
                 Buy
               </button>
-              <Link to="/">
+              <Link to={`/message/${seller.id}`}>
                 <button className="font-bold text-xl bg-gray-500 px-10 py-3 rounded-xl mt-3 text-white">
                   Message
                 </button>

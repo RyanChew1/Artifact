@@ -23,7 +23,7 @@ export async function signUpNewUser(
 
   if (!data) throw Error;
 
-  const user = addNewUserToDB(data.user?.id, email, username);
+  const user = addNewUserToDB(data.user?.id, email, username, first, last);
 
   if (!user) throw Error;
 
@@ -33,11 +33,13 @@ export async function signUpNewUser(
 export async function addNewUserToDB(
   id?: string,
   email?: string,
-  username?: string
+  username?: string,
+  first?: string,
+  last?:string,
 ) {
   const { data, error } = await supabase
     .from("users")
-    .insert([{ id: id, email: email, username: username }])
+    .insert([{ id: id, email: email, username: username, first:first, last:last }])
     .select();
 
   if (error) throw Error;

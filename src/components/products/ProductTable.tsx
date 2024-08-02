@@ -19,8 +19,6 @@ const ProductTable = () => {
     console.log(error);
   }
 
-  console.log(products);
-
   if (isLoading) return <Loader />;
 
   return (

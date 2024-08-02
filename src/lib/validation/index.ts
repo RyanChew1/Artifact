@@ -45,3 +45,7 @@ export const UploadProductValidation = z.object({
       });
       }
   });
+
+export const MessageValidation = z.object({
+  message: z.string().min(1, { message: "" })
+})

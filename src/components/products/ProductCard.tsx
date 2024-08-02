@@ -1,6 +1,10 @@
 import { IProductCard } from "@/types";
 import { Link } from "react-router-dom";
 
+const numToCurrency = (num:number) => {
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD'}).format(num)
+}
+
 const ProductCard = ({ product }: { product: IProductCard }) => {
   return (
     <Link to={`/product/${product.id}`}>
@@ -11,7 +15,7 @@ const ProductCard = ({ product }: { product: IProductCard }) => {
           {/* Image */}
           <img
             src={product.imageUrl}
-            className="h-[60%] aspect-square object-cover self-center"
+            className="h-[60%] aspect-square object-contain self-center"
           />
 
           {/* Title */}
@@ -32,7 +36,7 @@ const ProductCard = ({ product }: { product: IProductCard }) => {
               <p className="font-bold text-xl self-end">Free</p>
             ) : (
               <p className="font-bold text-xl self-end">
-                {`$` + product.price}
+                {numToCurrency(product.price).toString()}
               </p>
             )}
           </div>

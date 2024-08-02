@@ -13,6 +13,7 @@ export type IProduct = {
   description: string;
   imageUrl?: File;
   isSold: boolean;
+  sellerId: string;
 };
 
 export type IProductCard = {
@@ -23,3 +24,10 @@ export type IProductCard = {
   isSold: boolean;
   sellerId:string;
 };
+
+export type IMessageRow = {
+  id: string;
+  name: string;
+  avatarUrl: string;
+
+}

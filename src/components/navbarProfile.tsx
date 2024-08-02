@@ -1,5 +1,5 @@
 import { ModeToggle } from "./mode-toggle";
-import { useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import {
@@ -19,7 +19,7 @@ const NavbarProfile = () => {
   const navigate = useNavigate();
 
   let Links = [
-    { name: "Messages", link: "/" },
+    { name: "Messages", link: "/messagehome" },
     { name: "Sell Materials", link: "/sell" },
     { name: "Find Materials", link: "/browse" },
   ];
@@ -29,14 +29,20 @@ const NavbarProfile = () => {
     await supabase.auth.signOut();
   };
 
-  const [name, setName] = useState({
-    first: user?.user_metadata.first_name.charAt(0),
-    last: user?.user_metadata.last_name.charAt(0)
+  const [avatar, setAvatar] = useState("")
+
+  useEffect(() => {
+    if (user){
+      const seller = getUserWithId(user?.id)
+    seller.then(response => {
+      setAvatar(response.imageUrl)
+    })
+    }
+    
 })
 
-
   return (
-    <div className="bg-secondary-500 dark:bg-dark-4 w-full fixed top-0 left-0 text-xl font-semibold max-w-[100vw]">
+    <div className="bg-secondary-500 dark:bg-dark-4 w-full fixed top-0 left-0 text-xl font-semibold max-w-[100vw] z-[20]">
       <div className="md:flex items-center justify-between py-4 md:px-10 px-7 ">
         {/* logo section */}
         <Link to="/">
@@ -102,7 +108,7 @@ const NavbarProfile = () => {
           <DropdownMenu>
             <DropdownMenuTrigger className="btn bg-off-white hover:bg-gray-300 dark:hover:bg-gray-400 text-white md:ml-8 font-semibold px-3 py-3 rounded-[50%] md:static">
               <Avatar>
-                <AvatarImage src="" />
+                <AvatarImage src={avatar} />
                 <AvatarFallback className="text-black">{user?.user_metadata.first_name.charAt(0)}{user?.user_metadata.last_name.charAt(0)}</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>

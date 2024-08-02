@@ -48,6 +48,7 @@ const Sell = () => {
     productInfo: z.infer<typeof UploadProductValidation>
   ) => {
     if (user) {
+
       const newProduct = addProduct(
         user.id,
         productInfo.title,

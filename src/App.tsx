@@ -15,6 +15,8 @@ import Browse from "./_root/pages/Browse";
 import Sell from "./_root/pages/Sell";
 import ProductDetail from "./_root/pages/ProductDetail";
 import ProfilePage from "./_root/pages/Profile";
+import Messages from "./_root/pages/Messages";
+import MessageHome from "./_root/pages/MessageHome";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -45,6 +47,8 @@ function App() {
             <Route path="/browse" element={<Browse />} />
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/profile/:id" element={<ProfilePage />} />
+            <Route path="/messagehome" element={<MessageHome />} />
+            <Route path="/message/:id" element={<Messages />} />
           </Route>
         </Routes>
 
