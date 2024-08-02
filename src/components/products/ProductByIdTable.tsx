@@ -36,9 +36,7 @@ const ProductIdTable = (id: any) => {
         title: "Error deleting product",
         description: "Please try again",
       });
-    } else {
-      window.location.reload();
-    }
+    } 
   };
 
   return (

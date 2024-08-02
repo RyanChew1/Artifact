@@ -122,7 +122,13 @@ const NavbarProfile = () => {
                   Profile
                 </button>
               </DropdownMenuItem>
-              <DropdownMenuItem>Order History</DropdownMenuItem>
+              <DropdownMenuItem> <button
+                  onClick={() => {
+                    navigate(`/orders`);
+                  }}
+                >
+                  Order History
+                </button></DropdownMenuItem>
               <DropdownMenuItem>
                 <button onClick={signOut}>Sign Out</button>
               </DropdownMenuItem>

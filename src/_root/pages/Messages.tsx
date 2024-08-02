@@ -61,7 +61,6 @@ const Messages = () => {
       } else {
         refetch();
         setMessage("");
-        window.location.reload();
       }
     }
   };

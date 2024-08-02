@@ -24,3 +24,10 @@ export type IProductCard = {
   sold: boolean;
   sellerId:string;
 };
+
+export type IPurchase = {
+  id: string;
+  buyerId: string;
+  productId: string;
+  created_at: string;
+};

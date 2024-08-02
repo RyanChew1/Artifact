@@ -19,6 +19,7 @@ import Messages from "./_root/pages/Messages";
 import MessageHome from "./_root/pages/MessageHome";
 import About from "./About";
 import Faq from "./Faq";
+import Orders from "./_root/pages/Orders";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -53,6 +54,7 @@ function App() {
             <Route path="/profile/:id" element={<ProfilePage />} />
             <Route path="/messagehome" element={<MessageHome />} />
             <Route path="/message/:id" element={<Messages />} />
+            <Route path="/orders" element={<Orders />} />
           </Route>
         </Routes>
 
