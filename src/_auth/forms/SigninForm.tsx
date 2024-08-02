@@ -71,7 +71,7 @@ const SigninForm = () => {
           <CardTitle className="text-3xl font-bold text-primary-400">
             Log In{" "}
           </CardTitle>
-          <CardDescription className="text-lg font-medium">
+          <CardDescription className="text-lg font-medium text-black">
             Log In To Your Account
           </CardDescription>
         </CardHeader>
@@ -88,7 +88,7 @@ const SigninForm = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>
-                        <h1 className="font-semibold text-base">Email</h1>
+                        <h1 className="font-semibold text-base text-black">Email</h1>
                       </FormLabel>
                       <FormControl>
                         <Input {...field} />
@@ -104,7 +104,7 @@ const SigninForm = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>
-                        <h1 className="font-semibold text-base">Password</h1>
+                        <h1 className="font-semibold text-base  text-black">Password</h1>
                       </FormLabel>
                       <FormControl>
                         <Input {...field} type="password" className="text-black"/>

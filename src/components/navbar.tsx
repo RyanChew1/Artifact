@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   let Links = [
-    { name: "About Us", link: "/" },
+    { name: "About Us", link: "/about" },
+    { name: "FAQ", link: "/faq" },
     { name: "Log In", link: "/sign-in" },
   ];
   let [open, setOpen] = useState(false);
@@ -13,6 +14,7 @@ const Navbar = () => {
     <div className="bg-secondary-500 dark:bg-dark-4 w-full fixed top-0 left-0 text-xl font-semibold">
       <div className="md:flex items-center justify-between py-4 md:px-10 px-7 ">
         {/* logo section */}
+        <Link to="/">
         <div className="font-bold text-2xl cursor-pointer flex items-center gap-1">
           <img
             src={"/assets/Artifact Logo.png"}
@@ -20,6 +22,8 @@ const Navbar = () => {
           />
           <h1 className="text-3xl font-bold font-[Lexend]">ARTIFACT</h1>
         </div>
+        </Link>
+        
 
         {/* Menu icon */}
         <div

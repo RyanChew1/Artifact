@@ -17,6 +17,8 @@ import ProductDetail from "./_root/pages/ProductDetail";
 import ProfilePage from "./_root/pages/Profile";
 import Messages from "./_root/pages/Messages";
 import MessageHome from "./_root/pages/MessageHome";
+import About from "./About";
+import Faq from "./Faq";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,6 +36,8 @@ function App() {
         <Routes>
           {/* public routes */}
           <Route index element={<LandingPage />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/faq" element={<Faq />} />
 
           <Route element={<AuthLayout />}>
             <Route path="/sign-in" element={<SigninForm />} />
