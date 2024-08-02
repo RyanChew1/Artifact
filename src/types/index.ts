@@ -24,10 +24,3 @@ export type IProductCard = {
   isSold: boolean;
   sellerId:string;
 };
-
-export type IMessageRow = {
-  id: string;
-  name: string;
-  avatarUrl: string;
-
-}

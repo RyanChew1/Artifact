@@ -1,6 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useToast } from "@/components/ui/use-toast";
-import { useAuth } from "@/context/AuthContext";
 import { getUserWithId } from "@/lib/supabase/api";
 import { getProductById } from "@/services/apiProducts";
 import { useQuery } from "@tanstack/react-query";
@@ -19,8 +18,6 @@ const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
-
-  const { user } = useAuth();
 
   const [product, setProduct] = useState({
     id: 0,
@@ -58,6 +55,8 @@ const ProductDetail = () => {
     avatarUrl: "",
     username: "",
     id: "",
+    first: "",
+    last: ""
   });
 
   useEffect(() => {
@@ -67,6 +66,8 @@ const ProductDetail = () => {
         avatarUrl: response.imageUrl,
         username: response.username,
         id: response.id,
+        first:response.first,
+        last:response.last
       });
     });
   });
@@ -102,8 +103,8 @@ const ProductDetail = () => {
             <Avatar>
               <AvatarImage src={seller.avatarUrl} />
               <AvatarFallback className="text-white rounded-full bg-slate-500">
-                {user?.user_metadata.first_name.charAt(0)}
-                {user?.user_metadata.last_name.charAt(0)}
+                {seller.first.charAt(0)}
+                {seller.last.charAt(0)}
               </AvatarFallback>
             </Avatar>
             <span className="text-2xl font-bold ml-5 mt-1">

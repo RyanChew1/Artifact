@@ -4,12 +4,13 @@ import { useAuth } from "@/context/AuthContext";
 import { getUserWithId } from "@/lib/supabase/api";
 import {
   createMessage,
+  getMessageConvo,
   getMessages,
   sendMessage,
 } from "@/services/apiMessages";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const Messages = () => {
   const { toast } = useToast();
@@ -26,7 +27,7 @@ const Messages = () => {
 
   useEffect(() => {
     const fetchMessages = async () => {
-      const response = await getMessages(id!);
+      const response = await getMessageConvo(user?.id!, id!);
       if (response?.length === 0) {
         createMessage(user?.id!, id!);
       }
@@ -60,7 +61,7 @@ const Messages = () => {
       } else {
         refetch();
         setMessage("");
-        window.location.reload()
+        window.location.reload();
       }
     }
   };
@@ -69,7 +70,7 @@ const Messages = () => {
     avatarUrl: "",
     username: "",
     first: "",
-    last: ""
+    last: "",
   });
 
   useEffect(() => {
@@ -79,7 +80,7 @@ const Messages = () => {
         avatarUrl: response.imageUrl,
         username: response.username,
         first: response.first,
-        last: response.last
+        last: response.last,
       });
     });
   });
@@ -87,18 +88,23 @@ const Messages = () => {
   return (
     <div>
       <div className="flex flex-row justify-center">
-            {/* Avatar */}
-            <Avatar className="h-20 w-20">
-              <AvatarImage src={seller.avatarUrl} />
-              <AvatarFallback className="text-white rounded-full bg-slate-500 text-2xl">
-                {seller.first.charAt(0)}
-                {seller.last.charAt(0)}
-              </AvatarFallback>
-            </Avatar>
-            <span className="text-3xl font-bold ml-5 mt-4">
-              {seller.username}
-            </span>
-          </div>
+        <Link to={`/profile/${id}`} className="flex flex-row justify-center">
+          {/* Avatar */}
+          <Avatar className="h-20 w-20">
+            <AvatarImage
+              src={seller.avatarUrl}
+              className="bg-gray-500 dark:bg-white"
+            />
+            <AvatarFallback className="text-white rounded-full bg-slate-500 text-2xl">
+              {seller.first.charAt(0)}
+              {seller.last.charAt(0)}
+            </AvatarFallback>
+          </Avatar>
+          <span className="text-3xl font-bold ml-5 mt-4">
+            {seller.username}
+          </span>
+        </Link>
+      </div>
       <div>
         <div className="flex flex-col justify-center w-full mt-10">
           <div className="flex flex-col self-center w-[80vw] min-h-[85vh] bg-gray-700 bg-opacity-50 rounded-xl px-5 pt-10 pb-[7rem] justify-start space-y-3">

@@ -106,7 +106,7 @@ const NavbarProfile = () => {
             </li>
           ))}
           <DropdownMenu>
-            <DropdownMenuTrigger className="btn bg-off-white hover:bg-gray-300 dark:hover:bg-gray-400 text-white md:ml-8 font-semibold px-3 py-3 rounded-[50%] md:static">
+            <DropdownMenuTrigger className="btn bg-white hover:bg-gray-300 dark:hover:bg-gray-400 text-white md:ml-8 font-semibold px-3 py-3 rounded-[50%] md:static">
               <Avatar>
                 <AvatarImage src={avatar} />
                 <AvatarFallback className="text-black">{user?.user_metadata.first_name.charAt(0)}{user?.user_metadata.last_name.charAt(0)}</AvatarFallback>

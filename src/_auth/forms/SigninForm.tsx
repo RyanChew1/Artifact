@@ -66,7 +66,7 @@ const SigninForm = () => {
 
   return (
     <div>
-      <Card className="bg-gray-400 bg-opacity-30 w-[40vw]">
+      <Card className="border-none bg-gray-400 bg-opacity-50 w-[40vw]">
         <CardHeader className="flex justify-center text-center">
           <CardTitle className="text-3xl font-bold text-primary-400">
             Log In{" "}

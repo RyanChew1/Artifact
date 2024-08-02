@@ -4,7 +4,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useAuth } from "@/context/AuthContext";
 import { getUserWithId, updateAvatar, updateUsername } from "@/lib/supabase/api";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 function ProfilePage() {
   const { id } = useParams();
@@ -122,7 +122,12 @@ function ProfilePage() {
           className="bg-primary-400 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
         >
             Change Username
-          </button></>) : <></>}
+          </button></>) : <>          <Link to={`/message/${id}`}>
+        <button className="font-bold text-xl bg-gray-500 px-10 py-3 rounded-xl mt-3 text-white">
+                  Message
+                </button>
+        </Link></>}
+
         
       </div>
        {/* Your Products */}
