@@ -1,7 +1,20 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+
 import { useToast } from "@/components/ui/use-toast";
+import { useAuth } from "@/context/AuthContext";
 import { getUserWithId } from "@/lib/supabase/api";
-import { getProductById } from "@/services/apiProducts";
+import { getProductById, sell } from "@/services/apiProducts";
 import { useQuery } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -18,14 +31,15 @@ const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { user } = useAuth();
 
   const [product, setProduct] = useState({
-    id: 0,
+    id: "",
     title: "Product Title",
     description: "Product Description",
     price: 0.0,
     imageUrl: "",
-    isSold: false,
+    sold: false,
     sellerId: "",
   });
 
@@ -48,6 +62,7 @@ const ProductDetail = () => {
   useEffect(() => {
     if (response) {
       setProduct(response[0]);
+      console.log(response)
     }
   }, [response]);
 
@@ -56,7 +71,7 @@ const ProductDetail = () => {
     username: "",
     id: "",
     first: "",
-    last: ""
+    last: "",
   });
 
   useEffect(() => {
@@ -66,12 +81,26 @@ const ProductDetail = () => {
         avatarUrl: response.imageUrl,
         username: response.username,
         id: response.id,
-        first:response.first,
-        last:response.last
+        first: response.first,
+        last: response.last,
       });
     });
   });
 
+  const handleBuy = async () => {
+    const data = await sell(product.id, user?.id!)
+    if (data) {
+      toast({
+        title: "Product Sold",
+        variant: "green",
+      }) 
+    }else {
+      toast({
+        title: "Error Selling Product",
+        variant: "destructive"
+      })
+    }
+  }
   if (isLoading) return <Loader />;
 
   return (
@@ -128,15 +157,30 @@ const ProductDetail = () => {
           )}
         </div>
         <div>
-          {product.isSold ? (
+          {product.sold ? (
             <div className="font-bold text-xl self-end w-fit bg-red px-10 py-3 rounded-xl mt-3 text-white">
               Sold
             </div>
           ) : (
             <div className="flex flex-col">
-              <button className="font-bold text-xl w-fit bg-primary-400 px-10 py-3 rounded-xl mt-3 text-white">
-                Buy
-              </button>
+
+              <Drawer>
+                <DrawerTrigger className="font-bold text-xl w-fit bg-primary-400 px-10 py-3 rounded-xl mt-3 text-white">Buy</DrawerTrigger>
+                <DrawerContent>
+                  <DrawerHeader>
+                    <DrawerTitle className="text-center text-2xl">Purchase: {product.title}</DrawerTitle>
+                    <DrawerDescription className="text-center font-bold text-xl">
+                      {numToCurrency(product.price)}
+                    </DrawerDescription>
+                  </DrawerHeader>
+                  <DrawerFooter>
+                    <Button onClick={handleBuy} className="bg-primary-400 w-fit self-center">Submit</Button>
+                    <DrawerClose>
+                      <Button variant="outline">Cancel</Button>
+                    </DrawerClose>
+                  </DrawerFooter>
+                </DrawerContent>
+              </Drawer>
               <Link to={`/message/${seller.id}`}>
                 <button className="font-bold text-xl bg-gray-500 px-10 py-3 rounded-xl mt-3 text-white">
                   Message

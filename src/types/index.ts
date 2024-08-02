@@ -6,7 +6,7 @@ export type INewUser = {
 };
 
 export type IProduct = {
-  id: number;
+  id: string;
   title: string;
   seller: string;
   price: number;
@@ -21,6 +21,6 @@ export type IProductCard = {
   title: string;
   imageUrl: string;
   price: number;
-  isSold: boolean;
+  sold: boolean;
   sellerId:string;
 };

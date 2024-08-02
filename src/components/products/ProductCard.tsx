@@ -26,10 +26,10 @@ const ProductCard = ({ product }: { product: IProductCard }) => {
           <div className="flex flex-row w-full justify-end">
             <div
               className={`${
-                product.isSold ? "bg-red" : "bg-primary-400"
+                product.sold ? "bg-red" : "bg-primary-400"
               } text-center p-1 px-3 font-regular text-sm self-end rounded-xl mr-5`}
             >
-              {product.isSold ? "Sold" : "Available"}{" "}
+              {product.sold ? "Sold" : "Available"}{" "}
             </div>
 
             {product.price == 0 ? (

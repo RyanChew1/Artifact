@@ -2,7 +2,7 @@ import { supabase } from "@/lib/supabase/config";
 
 export const getProducts = async () => {
   try {
-    let { data: products, error } = await supabase.from("products").select("*");
+    let { data: products, error } = await supabase.from("products").select("*").eq("sold", false);
 
     if (error) throw Error;
 
@@ -58,9 +58,34 @@ export const addProduct = async (
   }
 };
 
-export const markSold = async () => {
+export const sell = async (productId:string, buyerId:string) => {
   try {
-  } catch (error) {}
+    console.log(productId)
+    let { error } = await supabase
+    .from("products")
+    .update({ sold:  true, buyerId: buyerId})
+    .eq("id",productId)
+    .select()
+
+    if (error) throw Error
+
+    const { data, error:errorPurchase } = await supabase
+    .from("purchases")
+    .insert([
+      {
+        buyerId: buyerId,
+        productId: productId
+      },
+    ])
+    .select();
+
+    if (errorPurchase) throw Error
+
+    return data
+
+  } catch (error) {
+    console.log(error)
+  }
 };
 
 export const getProductById = async (id: string) => {
