@@ -3,16 +3,18 @@ import { useQuery } from "@tanstack/react-query";
 import Loader from "../Loader";
 import ProductCard from "./ProductCard";
 import { IProductCard } from "@/types";
+import { useAuth } from "@/context/AuthContext";
 
 const ProductTable = () => {
+  const { user } = useAuth()
+
   const {
     isLoading,
     data: products,
     error,
-  } = useQuery({
-    queryKey: ["product"],
-    queryFn: getProducts,
-    refetchInterval: 30 * 1000, //30 seconds
+  } = useQuery(["product", user?.id], ({ queryKey }) => {
+    const productId = queryKey[1];
+    return getProducts(productId ?? "default-id");
   });
 
   if (error) {

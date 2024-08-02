@@ -1,8 +1,8 @@
 import { supabase } from "@/lib/supabase/config";
 
-export const getProducts = async () => {
+export const getProducts = async (id:string) => {
   try {
-    let { data: products, error } = await supabase.from("products").select("*").eq("sold", false);
+    let { data: products, error } = await supabase.from("products").select("*").eq("sold", false).neq("sellerId", id);
 
     if (error) throw Error;
 
