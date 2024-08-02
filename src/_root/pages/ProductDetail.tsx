@@ -1,3 +1,4 @@
+import CheckoutForm from "@/components/CheckoutForm";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,6 +11,8 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+
+
 
 import { useToast } from "@/components/ui/use-toast";
 import { useAuth } from "@/context/AuthContext";
@@ -175,6 +178,7 @@ const ProductDetail = () => {
                   </DrawerHeader>
                   <DrawerFooter>
                     <Button onClick={handleBuy} className="bg-primary-400 w-fit self-center">Submit</Button>
+                    <CheckoutForm />
                     <DrawerClose>
                       <Button variant="outline">Cancel</Button>
                     </DrawerClose>

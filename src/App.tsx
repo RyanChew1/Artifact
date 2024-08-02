@@ -17,6 +17,8 @@ import ProductDetail from "./_root/pages/ProductDetail";
 import ProfilePage from "./_root/pages/Profile";
 import Messages from "./_root/pages/Messages";
 import MessageHome from "./_root/pages/MessageHome";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "./components/Elements";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,8 +28,14 @@ const queryClient = new QueryClient({
   },
 });
 
+const stripePromise = loadStripe('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
+
+
 function App() {
   return (
+    <Elements stripe={stripePromise}>
+      
+    
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <main className="flex min-h-screen bg-off-white dark:bg-dark-5 text-black dark:text-white font-[Work Sans] overflow-x-hidden">
@@ -55,6 +63,7 @@ function App() {
         <Toaster />
       </main>
     </QueryClientProvider>
+    </Elements>
   );
 }
 
