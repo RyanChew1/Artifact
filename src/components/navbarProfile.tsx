@@ -45,7 +45,7 @@ const NavbarProfile = () => {
     <div className="bg-secondary-500 dark:bg-dark-4 w-full fixed top-0 left-0 text-xl font-semibold max-w-[100vw] z-[20]">
       <div className="md:flex items-center justify-between py-4 md:px-10 px-7 ">
         {/* logo section */}
-        <Link to="/">
+        <Link to="/home">
           <div className="font-bold text-2xl cursor-pointer flex items-center gap-1">
             <img
               src={"/assets/Artifact Logo.png"}

@@ -52,7 +52,7 @@ const SigninForm = () => {
       if (!response) throw Error;
 
       form.reset();
-      navigate("/");
+      navigate("/home");
     } catch (error) {
       setIsLoading(false)
       toast({

@@ -33,7 +33,7 @@ function App() {
       <main className="flex min-h-screen bg-off-white dark:bg-dark-5 text-black dark:text-white font-[Work Sans] overflow-x-hidden">
         <Routes>
           {/* public routes */}
-          <Route path="/landing" element={<LandingPage />} />
+          <Route index element={<LandingPage />} />
 
           <Route element={<AuthLayout />}>
             <Route path="/sign-in" element={<SigninForm />} />
@@ -42,7 +42,7 @@ function App() {
 
           {/* private routes */}
           <Route element={<RootLayout />}>
-            <Route index element={<Home />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/sell" element={<Sell />} />
             <Route path="/browse" element={<Browse />} />
             <Route path="/product/:id" element={<ProductDetail />} />

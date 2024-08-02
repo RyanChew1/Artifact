@@ -8,7 +8,7 @@ const RootLayout = () => {
 
   const { session } = useAuth();
   if (!session) {
-    navigate("/landing");
+    navigate("/");
   }
   return (
     <ThemeProvider storageKey="vite-ui-theme">

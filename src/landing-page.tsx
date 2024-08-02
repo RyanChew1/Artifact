@@ -9,7 +9,7 @@ const LandingPage = () => {
   return (
      <>
      {session ? (
-       <Navigate to="/" />
+       <Navigate to="/home" />
      ) : (
       <ThemeProvider>
       <Navbar />

@@ -61,7 +61,7 @@ const SignupForm = () => {
       
       setIsLoading(false)
       form.reset();
-      navigate("/");
+      navigate("/home");
     } catch (error) {
       setIsLoading(false)
       toast({
