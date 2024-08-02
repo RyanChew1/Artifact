@@ -100,9 +100,9 @@ const NavbarProfile = () => {
         >
           {Links.map((link) => (
             <li className="md:ml-8 md:my-0 my-7 font-semibold">
-              <a href={link.link} className=" hover:text-blue-400">
+              <Link to={link.link} className=" hover:text-blue-400">
                 {link.name}
-              </a>
+              </Link>
             </li>
           ))}
           <DropdownMenu>
