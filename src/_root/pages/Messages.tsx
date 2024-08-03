@@ -110,7 +110,7 @@ const Messages = () => {
             {messages.map((message, index) => (
               <div className="w-full">
                 <p
-                  className={`bg-secondary-500 p-2 rounded-xl font-bold w-fit ${
+                  className={`p-2 rounded-xl font-bold w-fit ${
                     message.sender == 0
                       ? "w-full text-center bg-gray-600 dark:bg-dark-5 font-semibold text-white"
                       : ""
@@ -121,7 +121,7 @@ const Messages = () => {
                       message.userIdTwo
                     )
                       ? "text-center bg-primary-200 text-white"
-                      : ""
+                      : "bg-secondary-500"
                   }`}
                   key={index}
                 >
